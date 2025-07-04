@@ -5,7 +5,7 @@ COMMAND = """\
 gantry run \
     --name vllm-debug-{version}-{model_tag} \
     --cluster ai2/augusta-google-1
-    --beaker-image ai2/cuda12.8-ubuntu22.04-notorch \
+    --beaker-image ai2/cuda12.8-dev-ubuntu22.04-notorch \
     --budget ai2/oe-eval \
     --workspace ai2/olmo-3-evals \
     --priority high \

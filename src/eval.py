@@ -95,7 +95,8 @@ class Math500(MinervaMath):
 def main(model):
     model_path = huggingface_hub.snapshot_download(model)
 
-    llm = LLM(model_path, enforce_eager=True, tensor_parallel_size=torch.cuda.device_count())
+    # enforce_eager=True, 
+    llm = LLM(model_path, tensor_parallel_size=torch.cuda.device_count())
     sampling_params = SamplingParams(
         temperature=0, 
         max_tokens=1024,

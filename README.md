@@ -22,7 +22,7 @@ curl -s https://pypi.org/pypi/vllm/json | jq -r '.releases | keys[]'
 gantry run \
     --name vllm-debug \
     --cluster ai2/augusta-google-1 \
-    --beaker-image ai2/cuda12.8-ubuntu22.04-notorch \
+    --beaker-image ai2/cuda12.8-dev-ubuntu22.04-notorch \
     --budget ai2/oe-eval \
     --workspace ai2/olmo-3-evals \
     --priority high \
@@ -36,6 +36,6 @@ python src/main.py \
 ```
 
 ```sh
-# Mass-launch jobs
+# Launch jobs on the cluster!
 python launch_jobs.py
 ```
