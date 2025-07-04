@@ -50,6 +50,8 @@ class MathMetric:
 
 
 class MinervaMath:
+    HF_PATH = "EleutherAI/hendrycks_math"
+
     SUBSETS = [
         "algebra",
         "counting_and_probability",
@@ -61,7 +63,7 @@ class MinervaMath:
     ]
 
     def __init__(self, subset):
-        self.dataset = load_dataset(path="EleutherAI/hendrycks_math", name=subset, split="test")
+        self.dataset = load_dataset(path=self.HF_PATH, name=subset, split="test")
         self.build_requests()
 
     def build_requests(self):
@@ -79,6 +81,15 @@ class MinervaMath:
             solution=solution,
             metadata={"level": doc.get("level"), "type": doc.get("type")},
         )
+    
+
+class Math500(MinervaMath):
+    HF_PATH = "HuggingFaceH4/MATH-500"
+    SUBSETS = ["main"]
+
+    def __init__(self, subset):
+        self.dataset = load_dataset(path=self.HF_PATH, split="test")
+        self.build_requests()
 
 
 def main(model):
@@ -91,12 +102,15 @@ def main(model):
         # stop=["Problem:", "\n\n"]
     )
 
+    # Dataset = MinervaMath
+    Dataset = Math500
+
     scores = {}
 
-    for subset in MinervaMath.SUBSETS:
+    for subset in Dataset.SUBSETS:
         print(f"Evaluating {subset}...")
 
-        dataset = MinervaMath(subset)
+        dataset = Dataset(subset)
 
         instances: List[Instance] = dataset.requests
         queries: List[str] = [instance.request for instance in instances]
@@ -123,9 +137,18 @@ def main(model):
     # Save to job output
     import json
     import os
+    import pkg_resources
+    vllm_version = pkg_resources.get_distribution('vllm').version
+
+    results = {
+        "score": mean_score, 
+        "model": model, 
+        "vllm_version": vllm_version
+    }
+
     os.makedirs("/results", exist_ok=True)
     with open("/results/metrics.json", "w") as f:
-        json.dump({"score": mean_score, "model": model}, f)
+        json.dump(results, f)
 
 
 if __name__ == "__main__":

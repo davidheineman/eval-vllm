@@ -3,14 +3,14 @@ from concurrent.futures import ThreadPoolExecutor
 
 COMMAND = """\
 gantry run \
-    --name vllm-debug-{version} \
-    --cluster ai2/augusta-google-1 \
+    --name vllm-debug-{version}-{model_tag} \
+    --cluster ai2/augusta-google-1
+    --beaker-image ai2/cuda12.8-ubuntu22.04-notorch \
     --budget ai2/oe-eval \
     --workspace ai2/olmo-3-evals \
     --priority high \
     --timeout 0 \
     --gpus 1 \
-    --allow-dirty \
     -- \
 python src/main.py \
     --package=vllm=={version} \
@@ -25,7 +25,11 @@ with open("versions.txt") as f:
     versions = [line.strip() for line in f]
 
 def run_command(version):
-    cmd = COMMAND.format(version=version, model=MODEL)
+    cmd = COMMAND.format(
+        version=version, 
+        model=MODEL,
+        model_tag=MODEL.split('/')[1]
+    )
     print(f"Running command for version {version}")
     subprocess.run(cmd, shell=True)
 

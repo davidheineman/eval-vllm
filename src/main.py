@@ -2,19 +2,24 @@ import subprocess
 import sys
 import argparse
 
-COMMAND = """
+RUN_CMD = """
 python src/eval.py --model {model}
+"""
+
+INSTALL_CMD = """
+pip install {package}
 """
 
 
 def install_package(package="vllm==0.9.1"):
-    print(f"Installing {package}...")
-    subprocess.run([sys.executable, "-m", "pip", "install", package])
+    cmd = INSTALL_CMD.format(package=package)
+    print(f"Running: {cmd}")
+    subprocess.run(cmd, shell=True)
 
 
 def run_eval(model):
-    cmd = COMMAND.format(model=model)
-    print(f"Running command for model {model}")
+    cmd = RUN_CMD.format(model=model)
+    print(f"Running: {cmd}")
     subprocess.run(cmd, shell=True)
 
 
