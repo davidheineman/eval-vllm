@@ -14,13 +14,17 @@ pip install {package}
 def install_package(package="vllm==0.9.1"):
     cmd = INSTALL_CMD.format(package=package)
     print(f"Running: {cmd}")
-    subprocess.run(cmd, shell=True)
+    result = subprocess.run(cmd, shell=True, check=True)
+    if result.returncode != 0:
+        raise RuntimeError(f"Failed to install package: {package}")
 
 
 def run_eval(model):
     cmd = RUN_CMD.format(model=model)
     print(f"Running: {cmd}")
-    subprocess.run(cmd, shell=True)
+    result = subprocess.run(cmd, shell=True, check=True)
+    if result.returncode != 0:
+        raise RuntimeError(f"Evaluation failed for model: {model}")
 
 
 if __name__ == "__main__":
