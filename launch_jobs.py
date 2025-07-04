@@ -1,5 +1,5 @@
 import subprocess
-
+from concurrent.futures import ThreadPoolExecutor
 
 COMMAND = """\
 gantry run \
@@ -13,14 +13,16 @@ gantry run \
     --allow-dirty \
     -- \
 python src/main.py \
-    --package={version}
+    --package=vllm=={version}
 """
 
 with open("versions.txt") as f:
     versions = [line.strip() for line in f]
 
-for version in versions:
-    version = version.split("==")[1]  # Extract just the version number
+def run_command(version):
     cmd = COMMAND.format(version=version)
     print(f"Running command for version {version}")
     subprocess.run(cmd, shell=True)
+
+with ThreadPoolExecutor() as executor:
+    executor.map(run_command, versions)
