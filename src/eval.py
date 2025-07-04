@@ -3,7 +3,7 @@ from typing import List, Optional
 
 import huggingface_hub
 import torch
-from vllm import LLM, SamplingParams
+from vllm import LLM, CompletionOutput, RequestOutput, SamplingParams
 from datasets import load_dataset
 
 from math_extract import extract_answer, is_equiv
@@ -70,7 +70,8 @@ class MinervaMath:
     def _process_instance(self, doc) -> Instance:
         solution = extract_answer(doc["solution"])[0]  # get primary extracted answer
 
-        query = "Problem:\n" + doc["problem"] + "\n\nSolution:"
+        # query = "Problem:\n" + doc["problem"] + "\n\nSolution:"
+        query = doc["problem"]
 
         return Instance(
             request=query,
@@ -82,13 +83,14 @@ class MinervaMath:
 
 def main():
     model_name = "Qwen/Qwen1.5-14B-Chat"
+    # model_name = "Qwen/Qwen3-8B"
     model_path = huggingface_hub.snapshot_download(model_name)
 
     llm = LLM(model_path, enforce_eager=True, tensor_parallel_size=torch.cuda.device_count())
     sampling_params = SamplingParams(
         temperature=0, 
         max_tokens=1024,
-        stop=["Problem:", "\n\n"]
+        # stop=["Problem:", "\n\n"]
     )
 
     scores = {}
@@ -101,21 +103,31 @@ def main():
         instances: List[Instance] = dataset.requests
         queries: List[str] = [instance.request for instance in instances]
 
-        outputs = llm.generate(queries, sampling_params)
+        outputs: List[RequestOutput] = llm.generate(queries, sampling_params)
 
         responses = []
         for input, output in zip(instances, outputs):
-            generated = output["text"]
-            responses += [Response(input=input, output=generated)]
+            completions: List[CompletionOutput] = output.outputs
+            completion = completions[0].text # only sampling 1 output
+            responses += [Response(input=input, output=completion)]
 
         metric = MathMetric(responses)
         metric.grade_responses()
         score = metric.compute_metric()
 
+        print(score)
+
         scores[subset] = score
 
     mean_score = sum(scores.values()) / len(scores)
     print(f"Overall mean score: {mean_score:.2%}")
+
+    # Save to job output
+    import json
+    import os
+    os.makedirs("/results", exist_ok=True)
+    with open("/results/metrics.json", "w") as f:
+        json.dump({"score": mean_score}, f)
 
 
 if __name__ == "__main__":
