@@ -18,6 +18,7 @@ python src/main.py \
 """
 
 MODEL = "Qwen/Qwen3-8B"
+# MODEL = "Qwen/Qwen1.5-14B-Chat"
 
 
 with open("versions.txt") as f:
