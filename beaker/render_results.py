@@ -2,48 +2,44 @@ import matplotlib.pyplot as plt
 from packaging import version
 
 # Data pulled from Beaker
-data = [
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.226, "vllm_version": "0.8.3"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.224, "vllm_version": "0.8.0"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.22, "vllm_version": "0.6.6.post1"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.228, "vllm_version": "0.8.4"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.228, "vllm_version": "0.8.5.post1"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.238, "vllm_version": "0.9.1"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.222, "vllm_version": "0.8.2"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.22, "vllm_version": "0.6.6"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.224, "vllm_version": "0.8.1"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.224, "vllm_version": "0.6.4.post1"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.22, "vllm_version": "0.6.5"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.23, "vllm_version": "0.9.0"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.234, "vllm_version": "0.9.0.1"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.234, "vllm_version": "0.8.5"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.218, "vllm_version": "0.7.2"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.218, "vllm_version": "0.7.3"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.218, "vllm_version": "0.5.5"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.218, "vllm_version": "0.7.0"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.218, "vllm_version": "0.6.2"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.218, "vllm_version": "0.7.1"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.224, "vllm_version": "0.6.4"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.218, "vllm_version": "0.6.1.post1"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.218, "vllm_version": "0.6.3.post1"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.218, "vllm_version": "0.6.1"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.218, "vllm_version": "0.6.3"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.218, "vllm_version": "0.6.1.post2"},
-    {"model": "Qwen/Qwen1.5-14B-Chat", "score": 0.232, "vllm_version": "0.5.4"},
-]
+data = [{'model': 'Qwen/Qwen3-14B', 'score': 0.394, 'vllm_version': '0.9.0'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.746, 'vllm_version': '0.8.5.post1'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.742, 'vllm_version': '0.8.2'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.736, 'vllm_version': '0.9.1'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.736, 'vllm_version': '0.9.0'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.742, 'vllm_version': '0.8.3'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.732, 'vllm_version': '0.7.1'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.746, 'vllm_version': '0.8.1'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.746, 'vllm_version': '0.8.5'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.736, 'vllm_version': '0.6.4.post1'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.738, 'vllm_version': '0.8.4'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.736, 'vllm_version': '0.9.0.1'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.732, 'vllm_version': '0.7.3'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.736, 'vllm_version': '0.6.5'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.742, 'vllm_version': '0.8.0'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.736, 'vllm_version': '0.6.3.post1'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.732, 'vllm_version': '0.7.2'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.736, 'vllm_version': '0.6.4'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.736, 'vllm_version': '0.6.2'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.736, 'vllm_version': '0.6.6.post1'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.736, 'vllm_version': '0.6.6'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.736, 'vllm_version': '0.6.3'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.736, 'vllm_version': '0.6.1.post2'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.736, 'vllm_version': '0.6.1'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.736, 'vllm_version': '0.6.1.post1'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.736, 'vllm_version': '0.6.0'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.738, 'vllm_version': '0.5.5'}, {'model': 'Qwen/Qwen2.5-14B-Instruct', 'score': 0.73, 'vllm_version': '0.5.4'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.214, 'vllm_version': '0.8.2'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.22, 'vllm_version': '0.9.1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.228, 'vllm_version': '0.8.5.post1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.23, 'vllm_version': '0.9.0'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.224, 'vllm_version': '0.8.0'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.226, 'vllm_version': '0.8.3'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.7.0'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.224, 'vllm_version': '0.6.4.post1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.226, 'vllm_version': '0.8.4'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.226, 'vllm_version': '0.8.1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.7.3'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.22, 'vllm_version': '0.6.5'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.6.2'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.6.3'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.23, 'vllm_version': '0.9.0.1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.228, 'vllm_version': '0.8.5'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.22, 'vllm_version': '0.6.6'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.7.2'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.6.3.post1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.7.1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.22, 'vllm_version': '0.6.6.post1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.224, 'vllm_version': '0.6.4'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.6.1.post2'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.5.5'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.232, 'vllm_version': '0.5.4'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.6.1.post1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.6.1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.226, 'vllm_version': '0.8.3'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.224, 'vllm_version': '0.8.0'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.22, 'vllm_version': '0.6.6.post1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.228, 'vllm_version': '0.8.4'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.228, 'vllm_version': '0.8.5.post1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.238, 'vllm_version': '0.9.1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.222, 'vllm_version': '0.8.2'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.22, 'vllm_version': '0.6.6'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.224, 'vllm_version': '0.8.1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.224, 'vllm_version': '0.6.4.post1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.22, 'vllm_version': '0.6.5'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.23, 'vllm_version': '0.9.0'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.234, 'vllm_version': '0.9.0.1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.234, 'vllm_version': '0.8.5'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.7.2'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.7.3'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.5.5'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.7.0'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.6.2'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.7.1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.224, 'vllm_version': '0.6.4'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.6.1.post1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.6.3.post1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.6.1'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.6.3'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.218, 'vllm_version': '0.6.1.post2'}, {'model': 'Qwen/Qwen1.5-14B-Chat', 'score': 0.232, 'vllm_version': '0.5.4'}, {'model': 'Qwen/Qwen3-8B', 'score': 0.4446143372337083}, {'model': 'Qwen/Qwen3-8B', 'score': 0.4388539228639751}, {'model': 'Qwen/Qwen3-8B', 'score': 0.4389461520021281}, {'model': 'Qwen/Qwen3-8B', 'score': 0.43965981660400116}, {'model': 'Qwen/Qwen3-8B', 'score': 0.4377268437299243}, {'model': 'Qwen/Qwen3-8B', 'score': 0.43945492495763444}, {'model': 'Qwen/Qwen3-8B', 'score': 0.43727195711653144}, {'model': 'Qwen/Qwen3-8B', 'score': 0.43659835730971464}, {'model': 'Qwen/Qwen3-8B', 'score': 0.44079075400063183}, {'model': 'Qwen/Qwen3-8B', 'score': 0.4462229986228768}, {'model': 'Qwen/Qwen3-8B', 'score': 0.43945492495763444}, {'score': 0.21655294967730374}, {'score': 0.21994535237663132}, {'score': 0.21337935936345745}, {'score': 0.21933722751570706}, {'score': 0.21306816182480565}, {'score': 0.21260823309264518}, {'score': 0.21679045208434194}, {'score': 0.2132572162329963}, {'score': 0.21260823309264518}, {'score': 0.21867986178228982}, {'score': 0.21127905328216506}, {'score': 0.21254912521834554}, {'score': 0.21260823309264518}, {'score': 0.21711308602263005}, {'score': 0.2123357409125995}, {'score': 0.21260823309264518}, {'score': 0.21105136252158535}, {'score': 0.21254912521834554}, {'score': 0.21254912521834554}, {'score': 0.2123357409125995}, {'score': 0.21105136252158535}, {'score': 0.2123357409125995}, {'score': 0.2123357409125995}, {'score': 0.21788430557498778}, {'score': 0.2123357409125995}, {'score': 0.2123357409125995}, {'score': 0.2123357409125995}, {'score': 0.2123357409125995}, {'score': 0.21796553292952678}]
 
-# Sort by version number
-data.sort(key=lambda x: version.parse(x["vllm_version"]))
+data = [d for d in data if "model" in d and "vllm_version" in d]
 
-versions = [d["vllm_version"] for d in data]
-scores = [d["score"]*100 for d in data]
+# Group data by model
+model_data = {}
+for d in data:
+    model = d["model"]
+    if model not in model_data:
+        model_data[model] = []
+    model_data[model].append(d)
 
-plt.figure(figsize=(8, 4))
-plt.plot(versions, scores, marker='o')
+# Get ordered list of all versions
+all_versions = sorted(list(set(d["vllm_version"] for d in data)), key=version.parse)
+
+plt.figure(figsize=(10, 4))
+
+for model, data_points in model_data.items():
+    if model != "Qwen/Qwen1.5-14B-Chat":
+        continue
+
+    # if model != "Qwen/Qwen2.5-14B-Instruct":
+    #     continue
+
+    # Create dict mapping version to score for this model
+    version_to_score = {d["vllm_version"]: d["score"]*100 for d in data_points}
+    
+    # Get scores in version order, using None for missing versions
+    scores = [version_to_score.get(v) for v in all_versions]
+    
+    model_name = model.split('/')[-1]
+    plt.plot(all_versions, scores, marker='o', label=model_name)
+
 plt.xticks(rotation=45, ha='right')
 plt.xlabel('vLLM Version')
 plt.ylabel('Exact Match')
-plt.title('Minerva 500 for Qwen1.5-14B-Chat (temp=0)')
-plt.grid(True)
+plt.title('Minerva 500 Scores (temp=0)')
+plt.grid(True, alpha=0.3)
+plt.legend()
 plt.tight_layout()
 plt.savefig('minerva_scores.png')

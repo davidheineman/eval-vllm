@@ -48,13 +48,15 @@ def get_results(experiments: List[Experiment]):
 def main():
     author = 'davidh'
     workspace = 'ai2/olmo-3-evals'
-    limit = 100
+    limit = 500
 
     experiments: List[Experiment] = gather_experiments(
         author_list=[author],
         workspace_name=workspace,
         limit=limit
     )
+
+    experiments = [exp for exp in experiments if 'vllm' in exp.name]
 
     print(get_results(experiments))
 
