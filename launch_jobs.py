@@ -3,7 +3,7 @@ import subprocess
 
 COMMAND = """\
 gantry run \
-    --name vllm-debug \
+    --name vllm-debug-{version} \
     --cluster ai2/augusta-google-1 \
     --budget ai2/oe-eval \
     --workspace ai2/olmo-3-evals \
@@ -13,7 +13,7 @@ gantry run \
     --allow-dirty \
     -- \
 python src/main.py \
-    --package=vllm=={version}
+    --package={version}
 """
 
 with open("versions.txt") as f:
