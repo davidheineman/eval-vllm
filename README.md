@@ -1,3 +1,7 @@
+Eval on multiple versions of vLLM
+
+![scores](minerva_scores.png)
+
 ### Quick start
 
 ```sh
@@ -37,5 +41,11 @@ python src/main.py \
 
 ```sh
 # Launch jobs on the cluster!
-python launch_jobs.py
+python beaker/launch_jobs.py
+
+# Gather results
+python beaker/pull_results.py
+
+# Render figure
+python beaker/render_results.py
 ```

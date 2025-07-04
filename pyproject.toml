@@ -27,7 +27,10 @@ beaker = [
 vllm = [
     "vllm"
 ]
-all = ["simple-eval[beaker,vllm]"]
+viz = [
+    "matplotlib"
+]
+all = ["simple-eval[beaker,vllm,viz]"]
 
 [tool.setuptools]
 include-package-data = true
