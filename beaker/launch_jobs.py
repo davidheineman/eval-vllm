@@ -5,7 +5,7 @@ COMMAND = """\
 gantry run \
     --name vllm-debug-{version}-{model_tag} \
     --cluster ai2/augusta-google-1 \
-    --beaker-image ai2/cuda12.8-dev-ubuntu22.04-notorch \
+    --beaker-image ai2/cuda12.4-dev-ubuntu20.04 \
     --budget ai2/oe-eval \
     --workspace ai2/olmo-3-evals \
     --priority high \
@@ -17,21 +17,34 @@ python src/main.py \
     --model={model}
 """
 
-# MODEL = "Qwen/Qwen3-8B"
-MODEL = "Qwen/Qwen1.5-14B-Chat"
+# ai2/cuda11.3-devel-ubuntu20.04
+# ai2/cuda11.8-dev-ubuntu20.04
+# ai2/cuda12.4-dev-ubuntu20.04
+# ai2/cuda12.8-dev-ubuntu22.04-notorch
 
 
-with open("versions.txt") as f:
-    versions = [line.strip() for line in f]
-
-def run_command(version):
+def run_command(version, model):
     cmd = COMMAND.format(
-        version=version, 
-        model=MODEL,
-        model_tag=MODEL.split('/')[1]
+        version=version,
+        model=model,
+        model_tag=model.split('/')[1]
     )
     print(f"Running command for version {version}")
     subprocess.run(cmd, shell=True)
 
-with ThreadPoolExecutor() as executor:
-    executor.map(run_command, versions)
+
+def main():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--model', type=str, required=True,
+                       help='Model to evaluate (e.g. Qwen/Qwen-14B-Chat)')
+    args = parser.parse_args()
+
+    with open("versions.txt") as f:
+        versions = [line.strip() for line in f]
+
+    with ThreadPoolExecutor() as executor:
+        executor.map(lambda v: run_command(v, args.model), versions)
+
+if __name__ == '__main__':
+    main()

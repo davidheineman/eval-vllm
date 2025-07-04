@@ -26,7 +26,7 @@ curl -s https://pypi.org/pypi/vllm/json | jq -r '.releases | keys[]'
 gantry run \
     --name vllm-debug \
     --cluster ai2/augusta-google-1 \
-    --beaker-image ai2/cuda12.8-dev-ubuntu22.04-notorch \
+    --beaker-image ai2/cuda12.4-dev-ubuntu20.04 \
     --budget ai2/oe-eval \
     --workspace ai2/olmo-3-evals \
     --priority high \
@@ -35,13 +35,16 @@ gantry run \
     --allow-dirty \
     -- \
 python src/main.py \
-    --package=vllm==0.1.6 \
+    --package=vllm==0.0.1 \
     --model=Qwen/Qwen1.5-14B-Chat
 ```
 
 ```sh
 # Launch jobs on the cluster!
-python beaker/launch_jobs.py
+python beaker/launch_jobs.py --model Qwen/Qwen-14B-Chat
+python beaker/launch_jobs.py --model Qwen/Qwen1.5-14B-Chat
+python beaker/launch_jobs.py --model Qwen/Qwen2.5-14B-Instruct
+python beaker/launch_jobs.py --model Qwen/Qwen3-14B
 
 # Gather results
 python beaker/pull_results.py
