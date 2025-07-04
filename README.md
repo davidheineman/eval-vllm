@@ -14,5 +14,16 @@ python src/main.py
 ### On Beaker
 
 ```sh
-gantry run --timeout -1 -- python src/main.py
+gantry run \
+    --name vllm-debug \
+    --cluster ai2/augusta-google-1 \
+    --budget ai2/oe-eval \
+    --workspace ai2/olmo-3-evals \
+    --priority high \
+    --timeout -1 \
+    --gpus 1 \
+    --allow-dirty \
+    -- \
+python src/main.py \
+    --package=vllm==0.8.2
 ```

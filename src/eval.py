@@ -87,8 +87,8 @@ def main():
     llm = LLM(model_path, enforce_eager=True, tensor_parallel_size=torch.cuda.device_count())
     sampling_params = SamplingParams(
         temperature=0, 
-        max_tokens=1024, 
-        stop_sequences=["Problem:", "\n\n"]
+        max_tokens=1024,
+        stop=["Problem:", "\n\n"]
     )
 
     scores = {}
