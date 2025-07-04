@@ -81,10 +81,8 @@ class MinervaMath:
         )
 
 
-def main():
-    model_name = "Qwen/Qwen1.5-14B-Chat"
-    # model_name = "Qwen/Qwen3-8B"
-    model_path = huggingface_hub.snapshot_download(model_name)
+def main(model):
+    model_path = huggingface_hub.snapshot_download(model)
 
     llm = LLM(model_path, enforce_eager=True, tensor_parallel_size=torch.cuda.device_count())
     sampling_params = SamplingParams(
@@ -127,8 +125,12 @@ def main():
     import os
     os.makedirs("/results", exist_ok=True)
     with open("/results/metrics.json", "w") as f:
-        json.dump({"score": mean_score}, f)
+        json.dump({"score": mean_score, "model": model}, f)
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--model", required=True, help="Model name/path to evaluate")
+    args = parser.parse_args()
+    main(args.model)

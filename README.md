@@ -25,5 +25,8 @@ gantry run \
     --allow-dirty \
     -- \
 python src/main.py \
-    --package=vllm==0.8.2
+    --package=vllm==0.8.2 \
+    --model=Qwen/Qwen1.5-14B-Chat
+
+# --model=Qwen/Qwen3-8B
 ```

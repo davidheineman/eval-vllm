@@ -13,14 +13,18 @@ gantry run \
     --allow-dirty \
     -- \
 python src/main.py \
-    --package=vllm=={version}
+    --package=vllm=={version} \
+    --model={model}
 """
+
+MODEL = "Qwen/Qwen3-8B"
+
 
 with open("versions.txt") as f:
     versions = [line.strip() for line in f]
 
 def run_command(version):
-    cmd = COMMAND.format(version=version)
+    cmd = COMMAND.format(version=version, model=MODEL)
     print(f"Running command for version {version}")
     subprocess.run(cmd, shell=True)
 
